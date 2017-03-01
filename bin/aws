@@ -4,7 +4,12 @@ docker pull astopy/aws-cli >/dev/null 2>&1 &
 
 if [ -z "$AWS_ACCESS_KEY_ID" ]
 then
-    VAULT="aws-vault exec default --"
+    if [ -z "$AWS_ROLE" ]
+    then
+        VAULT="aws-vault exec default --"
+    else
+        VAULT="aws-vault exec $AWS_ROLE --"
+    fi
 else
     VAULT=""
 fi
