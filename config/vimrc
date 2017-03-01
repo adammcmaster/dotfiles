@@ -1,0 +1,134 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'tpope/vim-fugitive'
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'mhinz/vim-signify'
+Plugin 'scrooloose/syntastic'
+Plugin 'jamessan/vim-gnupg'
+Plugin 'danro/rename.vim'
+Plugin 'vim-scripts/SyntaxRange'
+Plugin 'vim-scripts/ingo-library'
+Plugin 'kchmck/vim-coffee-script'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+function! WordCount()
+  let s:old_status = v:statusmsg
+  let position = getpos(".")
+  exe ":silent normal g\<c-g>"
+  let stat = v:statusmsg
+  let s:word_count = 0
+  if stat != '--No lines in buffer--'
+    let s:word_count = str2nr(split(v:statusmsg)[11])
+    let v:statusmsg = s:old_status
+  end
+  call setpos('.', position)
+  return s:word_count
+endfunction
+
+let g:airline#extensions#tabline#enabled = 1
+set dir=/var/tmp/
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set nu
+set ru
+filetype plugin indent on
+set colorcolumn=80
+highlight ColorColumn guibg=lightgrey
+if expand('%:t') =~?'bash-fc-\d\+'
+  setfiletype sh
+endif
+
+
+
+nnoremap <leader>t1 yypVr=
+nnoremap <leader>t2 yypVr-
+nnoremap <leader>t3 yypVr^
+nnoremap <leader>t4 yypVr"
+nnoremap <leader>tt yypVr=yykPjj
+
+syntax on
+filetype on
+au BufNewFile,BufRead *.md set filetype=markdown wrap tw=80
+au BufNewFile,BufRead *.md let g:airline_section_z='words:%{WordCount()}'
+
+au BufNewFile,BufRead *.tex set wrap tw=80
+
+au BufNewFile,BufRead *.rb set tabstop=2 shiftwidth=2 softtabstop=2
+au BufNewFile,BufRead *.yml set tabstop=2 shiftwidth=2 softtabstop=2
+
+filetype indent plugin on
+
+set spell
+set spelllang=en_gb
+
+au BufNEwFile,BufRead *.py set nospell
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
+
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+nnoremap ,w Jgqq
+nnoremap ,p :w<CR>:! cd "%:p:h" && pdflatex "%"<CR>
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+command WQ wq
+command Wq wq
+command W w
+command Q q
+
+set ignorecase
+set smartcase
+
+set laststatus=2
+
+set background=dark
+colorscheme solarized
+
+" Trailing whitespace highlighting
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+set modeline
+
+set wildmode=longest,list,full
+set wildmenu
+
+set clipboard=unnamed
+
+autocmd FileType c,cpp,java,php,python,ruby,coffee autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif

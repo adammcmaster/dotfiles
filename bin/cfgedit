@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+AWS="aws-vault exec default -- aws"
+SUM=$(which sha512sum || which sha || which md5sum || which md5 || true)
+
+path="s3://zooniverse-code/production_configs/$1"
+
+tempfile=$(mktemp)
+trap "srm -f $tempfile" INT TERM HUP EXIT
+
+$AWS s3 cp $path $tempfile
+
+if [ ! -z "$SUM" ]
+then
+    FILEHASH=$($SUM $tempfile)
+fi
+
+"${EDITOR:-vim}" $tempfile
+
+if [ -z "$FILEHASH" ] || [ "$FILEHASH" != "$($SUM $tempfile)" ]
+then
+    $AWS s3 cp --sse aws:kms $tempfile $path
+fi
