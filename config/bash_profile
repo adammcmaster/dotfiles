@@ -11,8 +11,6 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 source /usr/local/etc/bash_completion.d/*
 
-export PATH=/Users/adam/.local/lib/aws/bin:$PATH
-
 export iraf="$HOME/.local/iraf/"
 
 # Add iraf setup commands
@@ -33,11 +31,10 @@ export HISTFILESIZE=5000
 export NVM_DIR="/Users/adam/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-alias aws="aws-vault exec default -- $(which aws)"
-alias aws-sudo="aws-vault exec superuser -- $(which aws)"
-
 if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
     source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
 fi
 GIT_PROMPT_THEME=Solarized
 GIT_PROMPT_SHOW_UPSTREAM=1
+
+docker-prune
