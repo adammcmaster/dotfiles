@@ -1,0 +1,44 @@
+export PATH=./node_modules/.bin/:~/.bin:/usr/local/sbin:/usr/local/bin:$PATH
+
+export EDITOR=vim
+
+for d in ~/.local/*
+do
+    export PATH=$d/bin:$PATH
+done
+
+source /usr/local/bin/virtualenvwrapper.sh
+
+source /usr/local/etc/bash_completion.d/*
+
+export PATH=/Users/adam/.local/lib/aws/bin:$PATH
+
+export iraf="$HOME/.local/iraf/"
+
+# Add iraf setup commands
+if [ -e /Users/adam/.iraf/setup.sh ]; then
+    source /Users/adam/.iraf/setup.sh
+fi
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+source ~/Dropbox/Config/git-completion.bash
+
+alias ls="ls -G"
+
+export GOPATH=$HOME/Documents/Code/go
+export PATH=$PATH:$GOPATH/bin
+
+export HISTFILESIZE=5000
+
+export NVM_DIR="/Users/adam/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+alias aws="aws-vault exec default -- $(which aws)"
+alias aws-sudo="aws-vault exec superuser -- $(which aws)"
+
+if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
+fi
+GIT_PROMPT_THEME=Solarized
+GIT_PROMPT_SHOW_UPSTREAM=1
+
