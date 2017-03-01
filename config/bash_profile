@@ -21,7 +21,7 @@ if [ -e /Users/adam/.iraf/setup.sh ]; then
 fi
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-source ~/Dropbox/Config/git-completion.bash
+source ~/.dotfiles/config/git-completion.bash
 
 alias ls="ls -G"
 
@@ -41,4 +41,3 @@ if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
 fi
 GIT_PROMPT_THEME=Solarized
 GIT_PROMPT_SHOW_UPSTREAM=1
-
