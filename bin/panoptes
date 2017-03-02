@@ -1,0 +1,9 @@
+#!/bin/bash
+
+docker pull astopy/panoptes-cli >/dev/null 2>&1 &
+
+exec $VAULT docker run -it --rm \
+    -v $HOME/.panoptes/:/root/.panoptes\
+    -v /Users:/Users \
+    -w $PWD \
+    astopy/panoptes-cli "$@"
