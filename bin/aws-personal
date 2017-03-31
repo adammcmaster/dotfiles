@@ -1,0 +1,3 @@
+#!/bin/bash
+
+AWS_ROLE=personal aws "$@"
