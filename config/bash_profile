@@ -1,4 +1,4 @@
-export PATH=./node_modules/.bin/:~/.bin:/usr/local/sbin:/usr/local/bin:$PATH
+export PATH=./node_modules/.bin/:~/.bin:~/Library/Python/2.7/bin/:/usr/local/sbin:/usr/local/bin:$PATH
 
 export EDITOR=vim
 
