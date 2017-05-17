@@ -1,12 +1,19 @@
-#!/bin/bash
+#!/bin/bash -e
 
 docker pull astopy/awssh >/dev/null 2>&1 &
 
-exec aws-vault exec default -- docker run -it --rm \
+SSH_CONFIG_LINUX=$(mktemp ~/.ssh/config.XXXXX)
+
+grep -v "UseKeychain" ~/.ssh/config > $SSH_CONFIG_LINUX
+
+aws-vault exec default -- docker run -it --rm \
     --volume $HOME/.ssh:/root/.ssh \
+    --volume $SSH_CONFIG_LINUX:/root/.ssh/config \
     -e AWS_DEFAULT_REGION \
     -e AWS_ACCESS_KEY_ID \
     -e AWS_SECRET_ACCESS_KEY \
     -e AWS_SESSION_TOKEN \
     -e AWS_SECURITY_TOKEN \
     astopy/awssh "$@"
+
+rm $SSH_CONFIG_LINUX
