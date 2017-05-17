@@ -5,7 +5,7 @@ SUM=$(which sha512sum || which sha || which md5sum || which md5 || true)
 path="s3://zooniverse-code/production_configs/$1"
 
 tempfile=$(mktemp ~/.tmpXXXXXX)
-trap "srm -f $tempfile" INT TERM HUP EXIT
+trap "rm -f $tempfile" INT TERM HUP EXIT
 
 aws s3 cp $path $tempfile
 
