@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DOCKER_IMAGE="postgres"
+
+docker pull $DOCKER_IMAGE >/dev/null 2>&1 &
+
+exec $VAULT docker run -it --rm \
+    -v $HOME/.psql_history:/root/.psql_history\
+    -v /Users:/Users \
+    -w $PWD \
+    $DOCKER_IMAGE psql "$@"
