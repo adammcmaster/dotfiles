@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOCKER_IMAGE="postgres"
+DOCKER_IMAGE="postgres:alpine"
 
 docker pull $DOCKER_IMAGE >/dev/null 2>&1 &
 
