@@ -1,0 +1,10 @@
+#!/bin/bash
+
+docker pull zooniverse/panoptes-cli >/dev/null 2>&1 &
+
+exec docker run -it --rm \
+    -v $HOME/.panoptes/:/root/.panoptes\
+    -v /Users:/Users \
+    -w $PWD \
+    --entrypoint /usr/local/bin/python \
+    zooniverse/panoptes-cli
