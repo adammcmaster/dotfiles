@@ -22,11 +22,13 @@ fi
 source ~/.dotfiles/config/git-completion.bash
 
 alias ls="ls -G"
+alias git=hub
 
 export GOPATH=$HOME/Documents/Code/go
 export PATH=$PATH:$GOPATH/bin
 
 export HISTFILESIZE=5000
+export HISTSIZE=$HISTFILESIZE
 
 export NVM_DIR="/Users/adam/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
