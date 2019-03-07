@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker pull astopy/aws-cli >/dev/null 2>&1 &
+docker pull zooniverse/aws-cli >/dev/null 2>&1 &
 
 if [ -z "$AWS_ACCESS_KEY_ID" ]
 then
@@ -23,4 +23,4 @@ exec $VAULT docker run -it --rm \
     -e AWS_SECRET_ACCESS_KEY \
     -e AWS_SESSION_TOKEN \
     -e AWS_SECURITY_TOKEN \
-    astopy/aws-cli "$@"
+    zooniverse/aws-cli "$@"
