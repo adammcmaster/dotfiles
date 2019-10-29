@@ -16,8 +16,10 @@ fi
 
 exec $VAULT docker run -it --rm \
     -v $HOME/.aws/:/root/.aws \
+    -v $HOME/.kube/:/root/.kube \
     -v /Users:/Users \
-    -w $PWD \
+    -v /Volumes:/Volumes \
+    -w "$PWD" \
     -e AWS_DEFAULT_REGION \
     -e AWS_ACCESS_KEY_ID \
     -e AWS_SECRET_ACCESS_KEY \
